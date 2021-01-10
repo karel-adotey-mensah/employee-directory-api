@@ -1,12 +1,13 @@
 const express = require("express")
 const cors = require('cors')
+require('dotenv').config()
 const app = express()
 const router = require("./routes/api")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 
 /* ----------------------- Connect to MongoDB Database ---------------------- */
-mongoose.connect("mongodb://localhost/employee-master")
+mongoose.connect(DB_STRING)
 mongoose.Promise = global.Promise
 
 /* ------------------------ allow cross-origin access ----------------------- */
