@@ -1,17 +1,19 @@
 const express = require("express")
 require("dotenv").config()
-const cors = require('cors')
 const app = express()
 const router = require("./routes/api")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
-
 /* ----------------------- Connect to MongoDB Database ---------------------- */
 mongoose.connect(process.env.DB_STRING)
 mongoose.Promise = global.Promise
 
 /* ------------------------ allow cross-origin access ----------------------- */
-app.use(cors())
+app.use(function(request, response, next) {
+    response.header("Access-Control-Allow-Origin", "*") // update to match the domain you will make the request from
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, token")
+    next()
+  })
 
 /* ---------------- Body-parser to get access to request data --------------- */
 app.use(bodyParser.json())
