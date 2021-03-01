@@ -13,6 +13,7 @@ mongoose.Promise = global.Promise;
 app.use(function (request, response, next) {
   response.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
   response.header("Access-Control-Allow-Headers", "*");
+  response.header("Access-Control-Allow-Methods", "*");
   next();
 });
 
