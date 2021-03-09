@@ -5,6 +5,7 @@ const router = require("./routes/api");
 const auth = require("./routes/auth");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+
 /* ----------------------- Connect to MongoDB Database ---------------------- */
 mongoose.connect(process.env.DB_STRING);
 mongoose.Promise = global.Promise;

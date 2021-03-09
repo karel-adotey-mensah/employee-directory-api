@@ -1,6 +1,13 @@
 const express = require("express");
+require("dotenv").config();
 const router = express.Router();
 const Employee = require("../models/employee");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 /* -------------------------------------------------------------------------- */
 /*                                    G E T                                   */
@@ -39,6 +46,23 @@ router.post("/employees", async (request, response, next) => {
       success: true,
       message: "Employee Created",
       data: newEmployee,
+      request: request.body,
+    });
+  } catch {
+    next();
+  }
+});
+
+router.post("/employees/img", async (request, response, next) => {
+  const { base64Data } = request.body;
+  const imageUrl = await cloudinary.uploader.upload(base64Data);
+  console.log(imageUrl);
+
+  try {
+    response.status(200).send({
+      success: true,
+      message: "Image Uploaded",
+      data: imageUrl,
       request: request.body,
     });
   } catch {
